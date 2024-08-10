@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 
 @Entity
+@Table(name = "brands")
 public class BrandEntity extends BaseEntity{
 
     @Column(unique = true, nullable = false)
