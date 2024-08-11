@@ -1,9 +1,10 @@
-package bg.softuni.mobilele.entities;
+package bg.softuni.mobilele.model.entities;
 
-import bg.softuni.mobilele.entities.enums.EngineEnum;
-import bg.softuni.mobilele.entities.enums.TransmissionEnum;
+import bg.softuni.mobilele.model.entities.enums.EngineEnum;
+import bg.softuni.mobilele.model.entities.enums.TransmissionEnum;
 import jakarta.persistence.*;
-import org.springframework.ui.Model;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "offers")
@@ -12,8 +13,10 @@ public class OfferEntity extends BaseEntity {
     private EngineEnum engine;
     private String imageUrl;
     private int mileage;
-    private int price;
+    private BigDecimal price;
     private int year;
+
+    private String description;
     @Enumerated(EnumType.STRING)
     private TransmissionEnum transmission;
     @ManyToOne
@@ -47,11 +50,11 @@ public class OfferEntity extends BaseEntity {
         this.mileage = mileage;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -61,6 +64,14 @@ public class OfferEntity extends BaseEntity {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public TransmissionEnum getTransmission() {
@@ -95,6 +106,7 @@ public class OfferEntity extends BaseEntity {
                 ", mileage=" + mileage +
                 ", price=" + price +
                 ", year=" + year +
+                ", description='" + description + '\'' +
                 ", transmission=" + transmission +
                 ", model=" + model +
                 ", user=" + user +
