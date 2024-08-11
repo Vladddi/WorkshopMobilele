@@ -18,7 +18,7 @@ public class ModelEntity extends BaseEntity {
 
     private int startYear;
 
-    private int endYear;
+    private Integer endYear;
 
     @ManyToOne
     private BrandEntity brand;
@@ -55,11 +55,11 @@ public class ModelEntity extends BaseEntity {
         this.startYear = startYear;
     }
 
-    public int getEndYear() {
+    public Integer getEndYear() {
         return endYear;
     }
 
-    public void setEndYear(int endYear) {
+    public void setEndYear(Integer endYear) {
         this.endYear = endYear;
     }
 
