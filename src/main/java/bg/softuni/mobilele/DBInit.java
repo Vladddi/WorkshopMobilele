@@ -1,16 +1,21 @@
-package bg.softuni.mobilele.web;
+package bg.softuni.mobilele;
 
 import bg.softuni.mobilele.model.entities.BaseEntity;
 import bg.softuni.mobilele.model.entities.BrandEntity;
 import bg.softuni.mobilele.model.entities.ModelEntity;
+import bg.softuni.mobilele.model.entities.OfferEntity;
+import bg.softuni.mobilele.model.entities.enums.EngineEnum;
 import bg.softuni.mobilele.model.entities.enums.ModelCategoryEnum;
+import bg.softuni.mobilele.model.entities.enums.TransmissionEnum;
 import bg.softuni.mobilele.repository.BrandRepository;
 import bg.softuni.mobilele.repository.ModelRepository;
+import bg.softuni.mobilele.repository.OfferRepository;
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToOne;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
@@ -18,10 +23,14 @@ import java.util.List;
 public class DBInit implements CommandLineRunner {
     private final ModelRepository modelRepository;
     private final BrandRepository brandRepository;
+    private OfferRepository offerRepository;
 
-    public DBInit(ModelRepository modelRepository, BrandRepository brandRepository) {
+    public DBInit(ModelRepository modelRepository,
+                  BrandRepository brandRepository,
+                  OfferRepository offerRepository) {
         this.modelRepository = modelRepository;
         this.brandRepository = brandRepository;
+        this.offerRepository = offerRepository;
     }
 
 
@@ -37,12 +46,30 @@ public class DBInit implements CommandLineRunner {
 
         brandRepository.saveAll(List.of(fordBrand, hondaBrand));
 
-        initFiesta(fordBrand);
+        ModelEntity fiestaModel = initFiesta(fordBrand);
         initEscort(fordBrand);
         initNC750S(hondaBrand);
+        createFiestaOffer(fiestaModel);
     }
 
-    private ModelEntity initNC750S(BrandEntity hondaBrand){
+    private void createFiestaOffer(ModelEntity modelEntity) {
+        OfferEntity fiestaOffer = new OfferEntity();
+
+        fiestaOffer.setEngine(EngineEnum.GASOLINE);
+        fiestaOffer.setImageUrl("https://cdn.motors.al/data/fb/cc/2010-ford-fiesta-128.jpg");
+        fiestaOffer.setMileage(40000);
+        fiestaOffer.setPrice(BigDecimal.valueOf(10000));
+        fiestaOffer.setYear(2019);
+        fiestaOffer.setDescription("Malko karana. Samo mezhdu blokovete. Inache pazena v garazh. :)");
+        fiestaOffer.setTransmission(TransmissionEnum.MANUAL);
+        fiestaOffer.setModel(modelEntity);
+
+        setCurrentTimestamps(fiestaOffer);
+
+        offerRepository.save(fiestaOffer);
+    }
+
+    private ModelEntity initNC750S(BrandEntity hondaBrand) {
         ModelEntity nc750s = new ModelEntity();
 
         nc750s.setName("NC750S");
@@ -54,7 +81,10 @@ public class DBInit implements CommandLineRunner {
         setCurrentTimestamps(nc750s);
 
         return modelRepository.save(nc750s);
-    };
+    }
+
+    ;
+
     private ModelEntity initEscort(BrandEntity fordBrand) {
         ModelEntity escort = new ModelEntity();
 
@@ -69,6 +99,7 @@ public class DBInit implements CommandLineRunner {
 
         return modelRepository.save(escort);
     }
+
     private ModelEntity initFiesta(BrandEntity fordBrand) {
         ModelEntity fiesta = new ModelEntity();
 
