@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/workshop_mobilele_db?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+    password: VladddiMySQL123*
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    #        defer-datasource-initialization: true
+    properties:
+      hibernate:
+      format_sql: true
+    hibernate:
+      ddl_auto: create-drop
+
+#logging:
+#    level:
+#        org.hibernate.SQL = DEBUG
+#        org.hibernate.jdbc.bind = TRACE
