@@ -26,6 +26,9 @@ public class CurrentUser {
     public boolean isAnonymous() {
         return isAnonymous;
     }
+    public boolean isLoggedIn() {
+        return !isAnonymous();
+    }
 
     public void setAnonymous(boolean anonymous) {
         if (anonymous){

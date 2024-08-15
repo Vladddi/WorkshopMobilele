@@ -30,5 +30,9 @@ public class LoginController {
             return "redirect:/users/login";
         }
     }
-
+    @PostMapping("/users/logout")
+    public String logout() {
+        userService.logoutCurrentUser();
+            return "redirect:/";
+    }
 }
