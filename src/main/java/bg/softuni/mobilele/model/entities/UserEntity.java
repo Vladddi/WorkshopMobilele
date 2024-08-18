@@ -1,6 +1,7 @@
 package bg.softuni.mobilele.model.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -16,7 +17,7 @@ private String firstName;
 private String lastName;
 private boolean isActive;
 private String imageUrl;
-@ManyToMany
+@ManyToMany(fetch = FetchType.EAGER)
 private List<UserRoleEntity> userRoles;
 
     public String getPassword() {
