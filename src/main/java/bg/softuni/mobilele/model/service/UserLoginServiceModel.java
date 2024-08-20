@@ -4,11 +4,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class UserLoginServiceModel {
-    private String username;
-    private String password;
-
     @NotNull
     @Size(min = 2)
+    private String username;
+    @NotNull
+    @Size(min = 3)
+    private String password;
+
+
     public String getUsername() {
         return username;
     }
@@ -17,8 +20,7 @@ public class UserLoginServiceModel {
         this.username = username;
         return this;
     }
-    @NotNull
-    @Size(min = 3)
+
     public String getPassword() {
         return password;
     }
